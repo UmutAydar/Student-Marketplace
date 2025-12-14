@@ -1,0 +1,14 @@
+@model UniMarket.Web.Models.Product
+
+<h2>Ürün Sil</h2>
+
+<div class="alert alert-danger">
+    <strong>@Model.Title</strong> adlı ürünü silmek istediğinize emin misiniz?
+</div>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <button type="submit" class="btn btn-danger">Evet, Sil</button>
+    <a href="/Products" class="btn btn-secondary">İptal</a>
+</form>
