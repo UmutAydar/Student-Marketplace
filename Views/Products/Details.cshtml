@@ -2,6 +2,16 @@
 
 <h2>Ürün Detayı</h2>
 
+@if (!string.IsNullOrEmpty(Model.ImagePath))
+{
+    <div class="mb-3">
+        <img src="@Model.ImagePath"
+             class="img-fluid rounded"
+             style="max-height:350px; object-fit:contain;" />
+    </div>
+}
+
+
 <div class="card p-3">
     <p><strong>Başlık:</strong> @Model.Title</p>
     <p><strong>Açıklama:</strong> @Model.Description</p>

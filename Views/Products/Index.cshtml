@@ -17,6 +17,7 @@
     <thead>
         <tr>
             <th>Başlık</th>
+            <th>Resim</th>
             <th>Açıklama</th>
             <th>Fiyat</th>
             <th>Satıldı mı?</th>
@@ -29,6 +30,16 @@
         {
             <tr>
                 <td>@item.Title</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.ImagePath))
+                    {
+                        <img src="@item.ImagePath" style="width:60px; height:60px; object-fit:cover; border-radius:8px;" />
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
                 <td>@item.Description</td>
                 <td>@item.Price ₺</td>
                 <td>@(item.IsSold ? "Evet" : "Hayır")</td>
