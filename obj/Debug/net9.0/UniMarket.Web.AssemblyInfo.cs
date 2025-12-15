@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UniMarket.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48e81d9c27b75752b25b1d94798ef3cdd89f7ef1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c7b907802547adf71a1c8424fdae7c4bda22bd1c")]
 [assembly: System.Reflection.AssemblyProductAttribute("UniMarket.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UniMarket.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

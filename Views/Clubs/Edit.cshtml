@@ -1,0 +1,50 @@
+@model UniMarket.Web.Models.Club
+
+@{
+    ViewData["Title"] = "Edit Club";
+}
+
+<h1>Edit Club</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Yeni Logo (opsiyonel)</label>
+                <input type="file" name="logo" class="form-control" />
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.LogoPath))
+            {
+                <div class="mb-3">
+                    <p class="mb-1">Mevcut Logo:</p>
+                    <img src="@Model.LogoPath" alt="Club Logo" style="max-height:120px;" />
+                </div>
+            }
+
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

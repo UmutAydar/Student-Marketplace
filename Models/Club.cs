@@ -14,4 +14,8 @@ public class Club
 
     // opsiyonel
     public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+    // logo dosya yolu (opsiyonel)
+    public string? LogoPath { get; set; }
+
 }
