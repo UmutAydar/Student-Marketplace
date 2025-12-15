@@ -1,8 +1,54 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IEnumerable<UniMarket.Web.Models.Product>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="m-0">Son Eklenen Ürünler</h2>
+        <a class="btn btn-success" href="/Products/Create">Ürün Ekle</a>
+    </div>
+
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning">
+            Henüz ürün eklenmemiş.
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100">
+
+                        @if (!string.IsNullOrEmpty(item.ImagePath))
+                        {
+                            <img src="@item.ImagePath" class="card-img-top" style="height:200px; object-fit:cover;" />
+                        }
+                        else
+                        {
+                            <div class="d-flex align-items-center justify-content-center bg-light" style="height:200px;">
+                                <span class="text-muted">Resim yok</span>
+                            </div>
+                        }
+
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Title</h5>
+                            <p class="card-text text-muted">@item.Description</p>
+                            <p class="fw-bold">@item.Price ₺</p>
+                        </div>
+
+                        <div class="card-footer bg-white border-0 pb-3">
+                            <a class="btn btn-sm btn-info" href="/Products/Details/@item.Id">Detay</a>
+                            <a class="btn btn-sm btn-warning" href="/Products/Edit/@item.Id">Düzenle</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
 </div>
+
+
