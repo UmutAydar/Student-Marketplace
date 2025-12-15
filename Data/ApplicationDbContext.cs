@@ -24,6 +24,8 @@ namespace UniMarket.Web.Data
 
         }
         
+        public DbSet<Club> Clubs { get; set; }
+        
     }
 
 }
