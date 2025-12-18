@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 namespace UniMarket.Web.Models;
 
 public class Product
@@ -20,6 +21,12 @@ public class Product
 
     public DateTime CreatedAt { get; set; }
 
-    public string? ImagePath { get; set; }
+    public string? ImagePath { get; set; } 
+
+    public string? OwnerId { get; set; } 
+
+    public IdentityUser? Owner { get; set; } 
+
+    public bool IsApproved { get; set; } = false;
 
 }

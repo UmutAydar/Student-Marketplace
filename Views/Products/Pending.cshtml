@@ -1,0 +1,43 @@
+@model IEnumerable<UniMarket.Web.Models.Product>
+
+@{
+    ViewData["Title"] = "Onay Bekleyen Ürünler";
+}
+
+<h1>Onay Bekleyen Ürünler</h1>
+<hr />
+
+@if (!Model.Any())
+{
+    <div class="alert alert-success">Onay bekleyen ürün yok.</div>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Başlık</th>
+                <th>Fiyat</th>
+                <th>Tarih</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Price ₺</td>
+                <td>@item.CreatedAt.ToShortDateString()</td>
+                <td>
+                    <form asp-action="Approve" asp-controller="Products" method="post" style="display:inline">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button type="submit" class="btn btn-success btn-sm">Onayla</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

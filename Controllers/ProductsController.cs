@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using UniMarket.Web.Data;
 using UniMarket.Web.Models;
 
@@ -12,17 +14,32 @@ namespace UniMarket.Web.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _env;
 
-        public ProductsController(ApplicationDbContext context, IWebHostEnvironment env)
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public ProductsController(ApplicationDbContext context, IWebHostEnvironment env, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _env = env;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
-            var products = _context.Products.ToList();
+            var query = _context.Products.AsQueryable();
+
+            if (!User.IsInRole("Admin"))
+            {
+                query = query.Where(p => p.IsApproved);
+            }
+
+            var products = query
+                .OrderByDescending(p => p.CreatedAt)
+                .ToList();
+
             return View(products);
         }
+
+
 
         // GET: /Products/Edit/7
         public IActionResult Edit(int id)
@@ -84,12 +101,14 @@ namespace UniMarket.Web.Controllers
 
 
         // GET: Products/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Create(Product product, IFormFile? imageFile)
         {
             if (ModelState.IsValid)
@@ -97,13 +116,13 @@ namespace UniMarket.Web.Controllers
                 // 1) Resim geldiyse kaydet
                 if (imageFile != null && imageFile.Length > 0)
                 {
-                    // uploads klasörü
-                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+                    var uploadsFolder = Path.Combine(
+                        Directory.GetCurrentDirectory(),
+                        "wwwroot",
+                        "uploads"
+                    );
 
-                    // benzersiz dosya adı
                     var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
-
-                    // kaydedilecek tam yol
                     var filePath = Path.Combine(uploadsFolder, fileName);
 
                     using (var stream = new FileStream(filePath, FileMode.Create))
@@ -111,12 +130,14 @@ namespace UniMarket.Web.Controllers
                         imageFile.CopyTo(stream);
                     }
 
-                    // DB’ye kaydedilecek yol (web’de kullanılacak)
                     product.ImagePath = "/uploads/" + fileName;
                 }
 
                 // 2) Diğer alanlar
                 product.CreatedAt = DateTime.Now;
+
+                product.OwnerId = _userManager.GetUserId(User);
+                product.IsApproved = User.IsInRole("Admin");
 
                 // 3) DB’ye ekle
                 _context.Products.Add(product);
@@ -127,6 +148,7 @@ namespace UniMarket.Web.Controllers
 
             return View(product);
         }
+
 
         // GET: /Products/Details/5
         public IActionResult Details(int id)
@@ -182,6 +204,30 @@ namespace UniMarket.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin")]
+        public IActionResult Pending()
+        {
+            var products = _context.Products
+            .Where(p => !p.IsApproved)
+            .OrderByDescending(p => p.CreatedAt)
+            .ToList();
+
+            return View(products);
+        }  
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Approve(int id)
+        {
+            var product = _context.Products.Find(id);
+            if (product == null) return NotFound();
+
+            product.IsApproved = true;
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Pending));
+        }
 
     }
 

@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("UniMarket.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c7b907802547adf71a1c8424fdae7c4bda22bd1c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+09783455354e4a4112cacf4eafd9aa4f51398cb6")]
 [assembly: System.Reflection.AssemblyProductAttribute("UniMarket.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UniMarket.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

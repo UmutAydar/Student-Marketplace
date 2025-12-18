@@ -19,6 +19,7 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         var products = _context.Products
+            .Where(p => p.IsApproved)
             .OrderByDescending(p => p.CreatedAt)
             .Take(8)
             .ToList();

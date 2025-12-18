@@ -76,8 +76,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[U:/Dersler/Udemy/Komple_Uygulamalı_Web/BitirmeProjesi/UniMarket.Web/Views/Products/Pending.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcUGVuZGluZy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [U:/Dersler/Udemy/Komple_Uygulamalı_Web/BitirmeProjesi/UniMarket.Web/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[U:/Dersler/Udemy/Komple_Uygulamalı_Web/BitirmeProjesi/UniMarket.Web/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [U:/Dersler/Udemy/Komple_Uygulamalı_Web/BitirmeProjesi/UniMarket.Web/Views/Shared/_ValidationScriptsPartial.cshtml]
